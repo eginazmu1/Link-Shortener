@@ -11,6 +11,7 @@ async function bootstrap() {
     origin: [
       frontendUrl,
       "https://webapps.live",
+      "https://www.webapps.live",
       "http://localhost:3000",
       "http://localhost:3001",
     ],

@@ -30,9 +30,8 @@ export default function Register() {
     }
 
     try {
-      const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
-      console.log("Register - Using API URL:", apiUrl);
-      const response = await axios.post(`${apiUrl}/auth/register`, {
+      console.log("Register - Using relative API path");
+      const response = await axios.post(`/api/auth/register`, {
         name: formData.name,
         email: formData.email,
         password: formData.password,

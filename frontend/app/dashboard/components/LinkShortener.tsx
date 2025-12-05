@@ -23,9 +23,8 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
 
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
       const response = await axios.post(
-        `${apiUrl}/links`,
+        `/api/links`,
         {
           originalUrl,
           customCode: customCode || undefined,

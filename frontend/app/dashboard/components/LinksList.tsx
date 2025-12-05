@@ -27,8 +27,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
 
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
-      await axios.delete(`${apiUrl}/links/${id}`, {
+      await axios.delete(`/api/links/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onLinksUpdate();

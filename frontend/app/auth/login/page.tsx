@@ -21,8 +21,7 @@ export default function Login() {
     setError("");
 
     try {
-      const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
-      const response = await axios.post(`${apiUrl}/auth/login`, formData);
+      const response = await axios.post(`/api/auth/login`, formData);
 
       localStorage.setItem("token", response.data.access_token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
