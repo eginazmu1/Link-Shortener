@@ -34,3 +34,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Documentation files with sensitive info
+DEPLOYMENT_SETUP.md
+VERCEL_DEPLOYMENT_GUIDE.md
+QUICK_DEPLOY.md
+*.secret.md
