@@ -7,12 +7,13 @@ export async function DELETE(
   try {
     const { id } = await params;
     const token = request.headers.get("Authorization");
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const backendUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
     const response = await fetch(`${backendUrl}/links/${id}`, {
       method: "DELETE",
       headers: {
-        "Authorization": token || "",
+        Authorization: token || "",
       },
     });
 

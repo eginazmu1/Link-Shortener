@@ -3,12 +3,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get("Authorization");
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const backendUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
     const response = await fetch(`${backendUrl}/links`, {
       method: "GET",
       headers: {
-        "Authorization": token || "",
+        Authorization: token || "",
       },
     });
 
@@ -28,13 +29,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const token = request.headers.get("Authorization");
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const backendUrl =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
     const response = await fetch(`${backendUrl}/links`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token || "",
+        Authorization: token || "",
       },
       body: JSON.stringify(body),
     });
