@@ -23,7 +23,7 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
 
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const apiUrl = "https://link-shortenerfix.vercel.app";
       const response = await axios.post(
         `${apiUrl}/links`,
         {
@@ -35,9 +35,7 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
         }
       );
 
-      const frontendUrl =
-        process.env.NEXT_PUBLIC_API_URL?.replace(/\/api$/, "") ||
-        "http://localhost:3000";
+      const frontendUrl = "https://link-shortener-jm7t.vercel.app";
       setShortUrl(`${frontendUrl}/${response.data.shortCode}`);
       setOriginalUrl("");
       setCustomCode("");

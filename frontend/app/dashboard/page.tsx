@@ -31,7 +31,7 @@ export default function Dashboard() {
   const fetchLinks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const apiUrl = "https://link-shortenerfix.vercel.app";
       const response = await axios.get(`${apiUrl}/links`, {
         headers: { Authorization: `Bearer ${token}` },
       });

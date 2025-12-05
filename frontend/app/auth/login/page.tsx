@@ -21,7 +21,7 @@ export default function Login() {
     setError("");
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const apiUrl = "https://link-shortenerfix.vercel.app";
       const response = await axios.post(`${apiUrl}/auth/login`, formData);
 
       localStorage.setItem("token", response.data.access_token);

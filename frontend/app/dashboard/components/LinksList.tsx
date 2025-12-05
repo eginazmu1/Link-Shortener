@@ -27,7 +27,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
 
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      const apiUrl = "https://link-shortenerfix.vercel.app";
       await axios.delete(`${apiUrl}/links/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -70,12 +70,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-                      {`${
-                        process.env.NEXT_PUBLIC_API_URL?.replace(
-                          /\/api$/,
-                          ""
-                        ) || "http://localhost:3000"
-                      }/${link.shortCode}`}
+                      {`https://link-shortener-jm7t.vercel.app/${link.shortCode}`}
                     </h3>
                     <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-xs rounded-full">
                       {link.clicks} clicks
@@ -93,12 +88,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
                   <button
                     onClick={() =>
                       copyToClipboard(
-                        `${
-                          process.env.NEXT_PUBLIC_API_URL?.replace(
-                            /\/api$/,
-                            ""
-                          ) || "http://localhost:3000"
-                        }/${link.shortCode}`,
+                        `https://link-shortener-jm7t.vercel.app/${link.shortCode}`,
                         link._id
                       )
                     }
