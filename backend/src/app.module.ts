@@ -3,12 +3,14 @@ import { MongooseModule } from "@nestjs/mongoose";
 import { AuthModule } from "./auth/auth.module";
 import { LinksModule } from "./links/links.module";
 import { RedirectModule } from "./redirect/redirect.module";
+import { HealthModule } from "./health/health.module";
 
 @Module({
   imports: [
     MongooseModule.forRoot(
       process.env.MONGODB_URI || "mongodb://localhost:27017/linkshortener"
     ),
+    HealthModule,
     AuthModule,
     LinksModule,
     RedirectModule,
