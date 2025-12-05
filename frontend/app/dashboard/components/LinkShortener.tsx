@@ -1,45 +1,49 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Link as LinkIcon, Copy, Check, Zap } from 'lucide-react';
-import axios from 'axios';
+import { useState } from "react";
+import { Link as LinkIcon, Copy, Check, Zap } from "lucide-react";
+import axios from "axios";
 
 interface LinkShortenerProps {
   onLinkCreated: () => void;
 }
 
 export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
-  const [originalUrl, setOriginalUrl] = useState('');
-  const [customCode, setCustomCode] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
+  const [originalUrl, setOriginalUrl] = useState("");
+  const [customCode, setCustomCode] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
       const response = await axios.post(
-        'http://localhost:3001/links',
+        `${apiUrl}/links`,
         {
           originalUrl,
-          customCode: customCode || undefined
+          customCode: customCode || undefined,
         },
         {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      setShortUrl(`http://localhost:3001/${response.data.shortCode}`);
-      setOriginalUrl('');
-      setCustomCode('');
+      const frontendUrl =
+        process.env.NEXT_PUBLIC_API_URL?.replace(/\/api$/, "") ||
+        "http://localhost:3000";
+      setShortUrl(`${frontendUrl}/${response.data.shortCode}`);
+      setOriginalUrl("");
+      setCustomCode("");
       onLinkCreated();
     } catch (error: any) {
-      setError(error.response?.data?.message || 'Failed to create short link');
+      setError(error.response?.data?.message || "Failed to create short link");
     } finally {
       setIsLoading(false);
     }
@@ -51,7 +55,7 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error('Failed to copy:', error);
+      console.error("Failed to copy:", error);
     }
   };
 
@@ -116,7 +120,7 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
             disabled={isLoading}
             className="w-full py-4 px-6 bg-gradient-to-r from-primary-500 to-purple-600 text-white text-lg font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {isLoading ? 'Creating Link...' : 'Shorten URL'}
+            {isLoading ? "Creating Link..." : "Shorten URL"}
           </button>
         </form>
       </div>
@@ -138,7 +142,9 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
 
           <div className="flex items-center gap-4 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
             <div className="flex-1">
-              <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Short URL:</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                Short URL:
+              </p>
               <p className="text-lg font-mono text-primary-600 dark:text-primary-400 break-all">
                 {shortUrl}
               </p>

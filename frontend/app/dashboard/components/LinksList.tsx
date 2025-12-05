@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Copy, ExternalLink, Trash2, BarChart3, Check } from 'lucide-react';
-import axios from 'axios';
+import { useState } from "react";
+import { Copy, ExternalLink, Trash2, BarChart3, Check } from "lucide-react";
+import axios from "axios";
 
 interface LinksListProps {
   links: any[];
@@ -18,21 +18,22 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
       setCopiedId(id);
       setTimeout(() => setCopiedId(null), 2000);
     } catch (error) {
-      console.error('Failed to copy:', error);
+      console.error("Failed to copy:", error);
     }
   };
 
   const deleteLink = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this link?')) return;
+    if (!confirm("Are you sure you want to delete this link?")) return;
 
     try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:3001/links/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
+      const token = localStorage.getItem("token");
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      await axios.delete(`${apiUrl}/links/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       onLinksUpdate();
     } catch (error) {
-      console.error('Error deleting link:', error);
+      console.error("Error deleting link:", error);
     }
   };
 
@@ -58,7 +59,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Your Links ({links.length})
         </h2>
-        
+
         <div className="space-y-4">
           {links.map((link) => (
             <div
@@ -69,7 +70,12 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-                      {`http://localhost:3001/${link.shortCode}`}
+                      {`${
+                        process.env.NEXT_PUBLIC_API_URL?.replace(
+                          /\/api$/,
+                          ""
+                        ) || "http://localhost:3000"
+                      }/${link.shortCode}`}
                     </h3>
                     <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-xs rounded-full">
                       {link.clicks} clicks
@@ -85,7 +91,17 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => copyToClipboard(`http://localhost:3001/${link.shortCode}`, link._id)}
+                    onClick={() =>
+                      copyToClipboard(
+                        `${
+                          process.env.NEXT_PUBLIC_API_URL?.replace(
+                            /\/api$/,
+                            ""
+                          ) || "http://localhost:3000"
+                        }/${link.shortCode}`,
+                        link._id
+                      )
+                    }
                     className="p-2 bg-primary-100 dark:bg-primary-900/20 hover:bg-primary-200 dark:hover:bg-primary-900/40 rounded-lg transition-colors duration-200"
                     title="Copy short URL"
                   >
@@ -95,7 +111,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
                       <Copy className="h-4 w-4 text-primary-600" />
                     )}
                   </button>
-                  
+
                   <a
                     href={link.originalUrl}
                     target="_blank"
@@ -105,7 +121,7 @@ export default function LinksList({ links, onLinksUpdate }: LinksListProps) {
                   >
                     <ExternalLink className="h-4 w-4 text-gray-600 dark:text-gray-300" />
                   </a>
-                  
+
                   <button
                     onClick={() => deleteLink(link._id)}
                     className="p-2 bg-red-100 dark:bg-red-900/20 hover:bg-red-200 dark:hover:bg-red-900/40 rounded-lg transition-colors duration-200"
