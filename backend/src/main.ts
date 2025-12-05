@@ -10,7 +10,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       frontendUrl,
-      "https://link-shortener-jm7t.vercel.app",
+      "https://webapps.live",
       "http://localhost:3000",
       "http://localhost:3001",
     ],

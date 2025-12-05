@@ -35,7 +35,7 @@ export default function LinkShortener({ onLinkCreated }: LinkShortenerProps) {
         }
       );
 
-      const frontendUrl = "https://link-shortener-jm7t.vercel.app";
+      const frontendUrl = "https://webapps.live";
       setShortUrl(`${frontendUrl}/${response.data.shortCode}`);
       setOriginalUrl("");
       setCustomCode("");

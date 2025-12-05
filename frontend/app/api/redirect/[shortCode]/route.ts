@@ -15,10 +15,10 @@ export async function GET(
       );
     }
 
-    const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
+    const backendUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
 
     // Call backend redirect endpoint
-    const response = await fetch(`${apiUrl}/redirect/api/${shortCode}`, {
+    const response = await fetch(`${backendUrl}/redirect/api/${shortCode}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

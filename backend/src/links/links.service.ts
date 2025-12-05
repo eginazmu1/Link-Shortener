@@ -34,12 +34,24 @@ export class LinksService {
     });
   }
 
+  // Generate a short, readable code (4-5 characters)
+  private generateShortCode(length: number = 5): string {
+    const charset =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let code = "";
+    for (let i = 0; i < length; i++) {
+      code += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    return code;
+  }
+
   async createLink(createLinkDto: CreateLinkDto, userId: string) {
     let shortCode = createLinkDto.customCode;
 
     // Generate random short code if custom code is not provided
     if (!shortCode) {
-      shortCode = shortid.generate().substring(0, 6);
+      // Generate a shorter, more readable short code (4-5 characters)
+      shortCode = this.generateShortCode();
     }
 
     // Check if short code already exists
