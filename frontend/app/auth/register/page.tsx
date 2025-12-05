@@ -31,6 +31,7 @@ export default function Register() {
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+      console.log("Register - Using API URL:", apiUrl);
       const response = await axios.post(`${apiUrl}/auth/register`, {
         name: formData.name,
         email: formData.email,
