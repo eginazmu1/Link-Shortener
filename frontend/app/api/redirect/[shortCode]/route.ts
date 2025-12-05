@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { shortCode: string } }
+  { params }: { params: Promise<{ shortCode: string }> }
 ) {
   try {
-    const shortCode = params.shortCode;
+    const { shortCode } = await params;
 
     // Validate short code format
     if (!shortCode || shortCode.length === 0) {
