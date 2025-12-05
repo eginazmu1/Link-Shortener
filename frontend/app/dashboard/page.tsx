@@ -31,7 +31,7 @@ export default function Dashboard() {
   const fetchLinks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const apiUrl = "https://link-shortenerfix.vercel.app";
+      const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
       const response = await axios.get(`${apiUrl}/links`, {
         headers: { Authorization: `Bearer ${token}` },
       });

@@ -15,10 +15,10 @@ export async function GET(
       );
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const apiUrl = "https://link-shortener1-a8b19e3228a2.herokuapp.com";
 
     // Call backend redirect endpoint
-    const response = await fetch(`${apiUrl}/redirect/${shortCode}`, {
+    const response = await fetch(`${apiUrl}/redirect/api/${shortCode}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
