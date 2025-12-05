@@ -30,6 +30,9 @@ export class Link {
   @Prop({ default: 0 })
   clicks: number;
 
+  @Prop({ default: null })
+  title: string;
+
   @Prop({
     default: null,
     set: (value: Date) => {
