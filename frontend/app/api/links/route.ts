@@ -3,8 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get("Authorization");
-    const backendUrl =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!backendUrl) {
+      return NextResponse.json(
+        { message: "Backend URL not configured" },
+        { status: 500 }
+      );
+    }
 
     const response = await fetch(`${backendUrl}/links`, {
       method: "GET",
@@ -29,8 +35,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const token = request.headers.get("Authorization");
-    const backendUrl =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    if (!backendUrl) {
+      return NextResponse.json(
+        { message: "Backend URL not configured" },
+        { status: 500 }
+      );
+    }
 
     const response = await fetch(`${backendUrl}/links`, {
       method: "POST",
