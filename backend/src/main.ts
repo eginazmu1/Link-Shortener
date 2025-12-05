@@ -8,7 +8,12 @@ async function bootstrap() {
   // Enable CORS with environment-based configuration
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
   app.enableCors({
-    origin: [frontendUrl, "http://localhost:3000", "http://localhost:3001"],
+    origin: [
+      frontendUrl,
+      "https://link-shortener-jm7t.vercel.app",
+      "http://localhost:3000",
+      "http://localhost:3001",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
